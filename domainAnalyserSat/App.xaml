@@ -5,5 +5,174 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
+       <!-- Palette -->
+       <!--All colours will be declared here to resuability -->
+
+        
+        <!--Surface Colours, Layers out the background through toned colours to create depth and improved immersion-->
+        <SolidColorBrush x:Key=" BackgroundBrush" Color="#0C0F10"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#1D2021"/>
+        <SolidColorBrush x:Key="SurfaceHighBrush"      Color="#272A2B"/>
+        <SolidColorBrush x:Key="OverlayBrush"          Color="#323536"/>
+        <SolidColorBrush x:Key="InputBackgroundBrush"  Color="#080A0B"/>
+        <SolidColorBrush x:Key="ZebraStripeBrush"      Color="#191C1D"/>
+        
+        <!--Text Colours, Used for text and icons to create contrast against the background-->
+        <SolidColorBrush x:Key="OnSurfaceBrush"        Color="#E1E3E4"/>
+        <SolidColorBrush x:Key="OnSurfaceVariantBrush" Color="#BACAC5"/>
+
+        <!-- OUTLINES (low-contrast borders define  the component edges) -->
+        <SolidColorBrush x:Key="OutlineBrush"          Color="#3C4A46"/>
+        <SolidColorBrush x:Key="OutlineFocusBrush"     Color="#859490"/>
+
+        <!-- PRIMARY (teal) - success, positive trends, primary actions-->
+        <SolidColorBrush x:Key="PrimaryBrush"          Color="#2DD4BF"/>
+        <SolidColorBrush x:Key="PrimaryHoverBrush"     Color="#57F1DB"/>
+        <SolidColorBrush x:Key="OnPrimaryBrush"        Color="#003731"/>
+
+        <!-- SECONDARY (sunset orange) - warnings, cuationary data points -->
+        <SolidColorBrush x:Key="SecondaryBrush"        Color="#EC6A06"/>
+        <SolidColorBrush x:Key="SecondaryLightBrush"   Color="#FFB690"/>
+        <SolidColorBrush x:Key="OnSecondaryBrush"      Color="#552100"/>
+
+            <!-- STATE COLOURS -->
+        <SolidColorBrush x:Key="ErrorBrush"            Color="#FFB4AB"/>
+        <SolidColorBrush x:Key="PositiveBrush"         Color="#2DD4BF"/>
+        <SolidColorBrush x:Key="NegativeBrush"         Color="#FF6B6B"/>
+
+
+        <!--Fonts -->
+        <FontFamily x:Key="InterFont">Inter, Segoe UI </FontFamily>
+        <FontFamily x:Key="MonoFont">JetBrains Mono, Cascadia Mono, Consolas</FontFamily>
+
+        <!--Control styles -->
+       
+        
+        <!--TextInputs -->
+        <Style x:Key="TerminalTextBox" TargetType="TextBox">
+            <Setter Property="Foreground" Value ="{StaticResource OnSurfaceBrush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="bd"
+                                Background="{StaticResource InputBackgroundBrush}"
+                                BorderBrush="{StaticResource OutlineBrush}"
+                                BorderThickness="1" CornerRadius="4">
+                            <!--Cladue Suggstion, use scrollviewer to manage text overflows -->
+                            <ScrollViewer x:Name="PART_ContentHost"  
+                                                                     
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                                                       
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource OutlineFocusBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            </Trigger>
+                            
+                        </ControlTemplate.Triggers>
+                                                                      
+                    </ControlTemplate>
+                                  
+                               
+                       
+                             
+                </Setter.Value>
+               
+          </Setter>             
+              
+        </Style>
+              
+        <!--Primary Button Styles-->
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource OnPrimaryBrush}"/>
+            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource PrimaryHoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+
+
+                    </ControlTemplate>
+                              
+                </Setter.Value>
+                   
+            </Setter>
+           
+        </Style>
+
+        <!--Secondary Button Styles -->
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
+            <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{StaticResource OutlineBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                            </Trigger>
+                            
+                        </ControlTemplate.Triggers>
+                            
+                    </ControlTemplate>
+                                     
+                               
+                </Setter.Value>
+                
+             
+            </Setter>
+            
+        </Style>
+        
+        
+
+
+
+
+
+
+
+
+
+
     </Application.Resources>
 </Application>
