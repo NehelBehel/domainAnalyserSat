@@ -54,7 +54,7 @@ namespace domainAnalyserSat
         // Opens the account-creation flow.
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: open the create-account window.
+            // TODO: open the create-account win    dow.
         }
 
 
