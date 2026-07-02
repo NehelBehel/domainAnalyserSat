@@ -21,5 +21,34 @@ namespace domainAnalyserSat
             txtUsername.Focus();
 
         }
+    
+        private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
+        {
+            string username = txtUsername.Text.Trim();
+            string password = pwdPassword.Password;
+            string confirm = pwdConfirm.Password;
+
+
+            //Loal Valdiation 
+            if (username.Length ==0 || password.Length ==0 || confirm.Length ==0)
+            {
+                //Show error 
+                UiHelper.showError(lblError, "Please fill in all fields.");
+                return;
+
+            }
+
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     }
 }

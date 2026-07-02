@@ -49,7 +49,7 @@
                        Target="{Binding ElementName=pwdPassword}"
                        Foreground="{StaticResource OnSurfaceVariantBrush}"
                        FontSize="12" Padding="0,18,0,6"/>
-                <TextBox x:Name="pwdPassword"
+                <PasswordBox x:Name="pwdPassword"
                          Style="{StaticResource TerminalTextBox}"
                          TabIndex="1"
                          AutomationProperties.Name="Password"/>

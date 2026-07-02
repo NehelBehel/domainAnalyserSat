@@ -22,12 +22,7 @@ namespace domainAnalyserSat
 
         }
 
-        // Helper to surface a validation / authentication message.
-        private void showError(string message)
-        {
-            lblError.Text = message;
-            lblError.Visibility = Visibility.Visible;
-        }
+        
         //btnLogin Event 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -36,7 +31,7 @@ namespace domainAnalyserSat
 
             if (txtUsername.Text == "" || pwdPassword.Password == "") //Check if username or password is empty
             {
-                showError("Please enter both username and password.");
+                UiHelper.showError(lblError, "Please fill in all fields.");
                 return;
 
 
@@ -47,7 +42,7 @@ namespace domainAnalyserSat
                 //   4. On failure: showError("Incorrect username or password.");
             }
 
-
+            UiHelper.clearError(lblError);
         }
 
         // btnCreateAccount_Click — Event
