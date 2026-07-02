@@ -60,6 +60,9 @@ namespace domainAnalyserSat
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
             // TODO: open the create-account win    dow.
+            createAccount createAccountWindow = new createAccount();
+            createAccountWindow.Show();
+            this.Close();
         }
 
        
