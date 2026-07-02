@@ -50,7 +50,7 @@
                        Foreground="{StaticResource OnSurfaceVariantBrush}"
                        FontSize="12" Padding="0,18,0,6"/>
                 <PasswordBox x:Name="pwdPassword"
-                         Style="{StaticResource TerminalTextBox}"
+                         Style="{StaticResource TerminalPassBox}"
                          TabIndex="1"
                          AutomationProperties.Name="Password"/>
                 <TextBlock Text="At least 8 characters."
@@ -87,11 +87,11 @@
                     <TextBlock Text="Already have an account?"
                                Foreground="{StaticResource OnSurfaceVariantBrush}"
                                FontSize="13" VerticalAlignment="Center"/>
-                    <Button x:Name="btnReturnToLogin"
+                    <Button x:Name="btnBackToLogin"
                             Content="Log in"
                             Style="{StaticResource LinkButton}"
                             TabIndex="4" Margin="6,0,0,0"
-                            Click="btnReturnToLogin_Click"/>
+                            Click="btnBackToLogin_Click"/>
 
 
 

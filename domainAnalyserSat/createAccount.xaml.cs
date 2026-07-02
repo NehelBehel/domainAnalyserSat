@@ -39,16 +39,23 @@ namespace domainAnalyserSat
             }
 
         }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+        private void btnBackToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            //Close this window and return to the login window
+            LoginWIndow loginWindow = new LoginWIndow();
+            loginWindow.Show();
+            this.Close();
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

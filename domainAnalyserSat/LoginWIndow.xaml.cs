@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,10 +42,19 @@ namespace domainAnalyserSat
                 //   3. On success: update last_login, open dashboardWindow, close this window.
                 //   4. On failure: showError("Incorrect username or password.");
             }
+            
+            
+            
+            
 
-            UiHelper.clearError(lblError);
         }
 
+        private void inputChanged(object sender, RoutedEventArgs e)
+        {
+            UiHelper.clearError(lblError);
+           
+
+        }
         // btnCreateAccount_Click — Event
         // Opens the account-creation flow.
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
@@ -52,7 +62,7 @@ namespace domainAnalyserSat
             // TODO: open the create-account win    dow.
         }
 
-
+       
 
     }
 

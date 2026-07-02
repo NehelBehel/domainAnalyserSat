@@ -44,7 +44,9 @@
                 <TextBox x:Name="txtUsername"
                          Style="{StaticResource TerminalTextBox}"
                          TabIndex="0"
-                         AutomationProperties.Name="Username"/>
+                         AutomationProperties.Name="Username"
+                         TextChanged="inputChanged"/>
+
 
                 <!-- Password -->
                 <Label Content="Password"
@@ -54,7 +56,8 @@
                 <PasswordBox x:Name="pwdPassword"
                              Style="{StaticResource TerminalPassBox}"
                              TabIndex="1"
-                             AutomationProperties.Name="Password"/>
+                             AutomationProperties.Name="Password"
+                             PasswordChanged="inputChanged"/>
 
                 <!-- Error / status message (hidden until needed) -->
                 <TextBlock x:Name="lblError"
