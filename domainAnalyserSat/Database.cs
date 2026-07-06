@@ -28,7 +28,7 @@ namespace domainAnalyserSat
 
         //Called on app start 
 
-        public static void Initilaise()
+        public static void Initialise()
         {
             Directory.CreateDirectory(folderPath); //Ensure the folder exists 
 
