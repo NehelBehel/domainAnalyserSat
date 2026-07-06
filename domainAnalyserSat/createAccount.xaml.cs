@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,6 +57,32 @@ namespace domainAnalyserSat
             }
 
             UiHelper.clearError(lblError);
+
+
+
+            try
+            {
+                //Reject duplicate usernames 
+                if (UserRepo.UserNameExist(username))
+                {
+                    UiHelper.showError(lblError, "That username is already taken.");
+                    return;
+                }
+
+                //Hash the password then intsert da row 
+                string passHash = PasswordHasher.Hash(password);
+                UserRepo.CreateUser(username, passHash);
+
+                //Success - send to login
+                returnToLogin();
+
+
+            }
+            catch (Exception ex)
+            {
+                UiHelper.showError(lblError, "An unexpected error occurred. Please try again ");
+                System.Diagnostics.Debug.WriteLine(ex.Message); //Log error
+            }
 
 
             // --- TODO: database step (next task) ---

@@ -43,7 +43,7 @@ namespace domainAnalyserSat
 
             string createUsers = @"
                 CREATE TABLE IF NOT EXISTS users(
-                    userID INTEGER PRIMARY KEY 
+                    userID INTEGER PRIMARY KEY, 
                     username TEXT NOT NULL UNIQUE COLLATE NOCASE,
                     passwordHash TEXT NOT NULL,
                     lastlogin TEXT, 
