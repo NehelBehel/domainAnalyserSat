@@ -92,8 +92,6 @@ namespace domainAnalyserSat
             //   3. INSERT a user row: username, password_hash, created_at = now.
             //   4. On success: return the user to the login screen (see below)
 
-            //Login Success
-            returnToLogin();
            
         }
 
