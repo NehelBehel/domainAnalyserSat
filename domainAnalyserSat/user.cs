@@ -5,7 +5,7 @@ using System.Text;
 
 namespace domainAnalyserSat
 {
-    class User
+    public class User //made public to be accessed so userepo can return 
     {
        public long userId { get; set; }
         public string username { get; set; } = string.Empty;

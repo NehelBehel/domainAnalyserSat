@@ -43,8 +43,56 @@ namespace domainAnalyserSat
 
         }
         
+        public static User? GetByUsername(string username) //username can return null
+        {
+            using SqliteConnection connection = Database.GetConnection();
+            using SqliteCommand command = new SqliteCommand(
+                "SELECT userId, username, passwordHash, createdAt, lastLogin FROM users WHERE username = @username;", connection);
 
 
+            command.Parameters.AddWithValue("@username", username);
+
+            using SqliteDataReader reader = command.ExecuteReader();
+            if (!reader.Read()) //no rows returned, uer not ofund 
+            {
+
+                return null;
+
+
+            }
+
+
+            return new User
+            {
+
+                userId = reader.GetInt64(0),
+                username = reader.GetString(1),
+                passwordHash = reader.GetString(2),
+                createdAt = DateTime.Parse(reader.GetString(4)),
+                lastLogin = reader.IsDBNull(3) ? (DateTime?)null : DateTime.Parse(reader.GetString(3)) //claude helped with this line 
+
+
+
+
+
+
+
+
+
+            };
+            
+               
+
+
+
+
+
+
+
+
+
+
+}
 }
 }
 
