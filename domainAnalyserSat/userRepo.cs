@@ -65,13 +65,13 @@ namespace domainAnalyserSat
             return new User
             {
 
-                userId = reader.GetInt64(0),
+                userId = reader.GetInt64(0), //ordinal 0 
                 username = reader.GetString(1),
                 passwordHash = reader.GetString(2),
-                createdAt = DateTime.Parse(reader.GetString(4)),
-                lastLogin = reader.IsDBNull(3) ? (DateTime?)null : DateTime.Parse(reader.GetString(3)) //claude helped with this line 
+                createdAt = DateTime.Parse(reader.GetString(3)),
+                lastLogin = reader.IsDBNull(4) ? (DateTime?)null : DateTime.Parse(reader.GetString(3)) //claude helped with this line 
 
-
+                    
 
 
 
@@ -83,7 +83,7 @@ namespace domainAnalyserSat
             
                
 
-
+            //stamp last successful login time 
 
 
 

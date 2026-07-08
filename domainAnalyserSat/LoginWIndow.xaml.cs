@@ -27,7 +27,7 @@ namespace domainAnalyserSat
         //btnLogin Event 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string usename = txtUsername.Text.Trim();
+            string username = txtUsername.Text.Trim();
             string password = pwdPassword.Password;
 
             if (txtUsername.Text == "" || pwdPassword.Password == "") //Check if username or password is empty
@@ -43,11 +43,32 @@ namespace domainAnalyserSat
                 //   4. On failure: showError("Incorrect username or password.");
             }
             
+            UiHelper.clearError(lblError);
+
+            //
+            User? user = UserRepo.GetByUsername(username);
+
+            if (user == null|| !PasswordHasher.Verify(password, user.passwordHash))
+            {
+                UiHelper.showError(lblError, "Incorrect usernme or password ");
+                return;
+
+
+
+            }
+
+            //Success - add an update for the last login time 
+
+            //Todo: Open dashboard window 
+            MessageBox.Show("Success");
+           
+
             
             
             
 
         }
+        
 
         private void inputChanged(object sender, RoutedEventArgs e)
         {
