@@ -52,10 +52,10 @@ namespace domainAnalyserSat
 
             //reset all navigation items to default state
             //mark the curr active nav item 
-            btnNavDashboard.Style = (Style)FindResource("SidebarNavButton");
-            btnNavWatchlist.Style = (Style)FindResource("SidebarNavButton");
-            btnNavSession.Style = (Style)FindResource("SidebarNavButton");
-            active.Style = (Style)FindResource("SidebarNavButtonActive");
+            btnNavDashboard.Style = (Style)FindResource("sidebarNavBtnActive");
+            btnNavWatchlist.Style = (Style)FindResource("sidebarNavBtnActive");
+            btnNavSession.Style = (Style)FindResource("sidebarNavBtnActive");
+            active.Style = (Style)FindResource("sidebarNavBtnActive");
 
         }
     }

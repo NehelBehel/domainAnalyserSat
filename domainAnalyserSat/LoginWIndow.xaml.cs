@@ -60,7 +60,11 @@ namespace domainAnalyserSat
             //Success - add an update for the last login time 
 
             //Todo: Open dashboard window 
-            MessageBox.Show("Success");
+            
+
+            var shell = new shellWindow();
+            shell.Show();
+            this.Close();
 
 
            
