@@ -304,7 +304,15 @@
 
 
         
+      <!--Selected sidebar nav menu -->
+        <Style x:Key="sidebarNavBtnActive" TargetType="Button"
+            BasedOn="{StaticResource SidebarNavButton}">
+            <Setter Property="Background" Value="{StaticResource SurfaceHighBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
 
+
+
+        </Style>
 
 
 

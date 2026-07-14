@@ -14,13 +14,13 @@ using System.Windows.Shapes;
 namespace domainAnalyserSat
 {
     /// <summary>
-    /// Interaction logic for windowShell.xaml
+    /// Interaction logic for workSpaceOV.xaml
     /// </summary>
-    public partial class windowShell: Page
+    public partial class workSpaceOV : UserControl
     {
-        public windowShell()
+        public workSpaceOV()
         {
-          
+            InitializeComponent();
         }
     }
 }
