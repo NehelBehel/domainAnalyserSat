@@ -57,6 +57,9 @@ namespace domainAnalyserSat
 
             }
 
+            
+
+
             //Success - add an update for the last login time 
 
             //Todo: Open dashboard window 
@@ -75,6 +78,23 @@ namespace domainAnalyserSat
 
         }
         
+        //skip login button, remove before final 
+        private void btnSkipLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+            var shell = new shellWindow();
+            shell.Show();
+            this.Close();
+
+
+
+
+
+
+        }
+
+
+
 
         private void inputChanged(object sender, RoutedEventArgs e)
         {

@@ -92,7 +92,18 @@
         </Border>
 
 
+        <!--TEMP SKIP LOGIN FOR DEVELOPMENT, REMOVE BEFORE FINAL SUBMISSION -->
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,6,0,0">
+            
+            <Button x:Name="btnSkipLogin"
+                    Content="Skip Login"
+                    Style="{StaticResource LinkButton}"
+                    TabIndex="4" Margin="6,0,0,0"
+                    Click="btnSkipLogin_Click"/>
 
+        </StackPanel>
 
 
 
