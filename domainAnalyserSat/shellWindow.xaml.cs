@@ -47,6 +47,9 @@ namespace domainAnalyserSat
 
 
 
+
+
+
         private void setActiveNav(Button active)
         {
 
@@ -56,6 +59,8 @@ namespace domainAnalyserSat
             btnNavWatchlist.Style = (Style)FindResource("sidebarNavBtnActive");
             btnNavSession.Style = (Style)FindResource("sidebarNavBtnActive");
             active.Style = (Style)FindResource("sidebarNavBtnActive");
+            //(Style)FindResource("sidebarNavBtnActive");
+
 
         }
     }

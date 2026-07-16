@@ -7,7 +7,8 @@
         mc:Ignorable="d"
          d:DesignHeight="600" d:DesignWidth="960"
  Background="{StaticResource BackgroundBrush}"
- FontFamily="{StaticResource InterFont}"
+ FontFamily="{StaticResource InterFont}"            
+       
  Title="windowShell">
     <Grid>
 
@@ -28,10 +29,10 @@
                 <StackPanel>
 
                     <TextBlock Text="Domain Investment"
-                           FontFamily="{StaticResource MonoFont}" FontSize="13"
+                           FontFamily="{StaticResource MonoFont}" FontSize="13" FontWeight="Bold"
                            Foreground="{StaticResource PrimaryBrush}"/>
 
-                    <TextBlock Text="Aanalyser"
+                    <TextBlock Text="Analyser"
                            FontFamily="{StaticResource MonoFont}" FontSize="13" FontWeight="Bold"
                            Foreground="{StaticResource PrimaryBrush}"/>
 
