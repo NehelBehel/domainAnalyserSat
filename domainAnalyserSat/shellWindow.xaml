@@ -81,12 +81,13 @@
                     <Button x:Name="btnTopImport" Content="Import"
                         Style="{StaticResource TopNavButton}"
                         Click="btnTopImport_Click"/>
+                    <Button x:Name="btnTopValidate" Content="Validate"
+      Style="{StaticResource TopNavButton}" Margin="28,0,0,0"
+      Click="btnTopValidate_Click"/>
                     <Button x:Name="btnTopAnalysis" Content="Analysis"
                         Style="{StaticResource TopNavButton}" Margin="28,0,0,0"
                         Click="btnTopAnalysis_Click"/>
-                    <Button x:Name="btnTopValidate" Content="Validate"
-                        Style="{StaticResource TopNavButton}" Margin="28,0,0,0"
-                        Click="btnTopValidate_Click"/>
+                  
                 </StackPanel>
             </Border>
             <!-- Swappable content region -->

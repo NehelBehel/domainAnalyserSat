@@ -44,6 +44,31 @@
         <!--Fonts -->
         <FontFamily x:Key="InterFont">Inter, Segoe UI </FontFamily>
         <FontFamily x:Key="MonoFont">JetBrains Mono, Cascadia Mono, Consolas</FontFamily>
+        
+        
+        <!--Pipline Brushes-->
+
+        <SolidColorBrush x:Key="StepPanelBrush"          Color="#111415"/>
+        <!-- stepper container bg -->
+        <SolidColorBrush x:Key="StepRailBrush"           Color="#1F2426"/>
+        <!-- default rail + border -->
+        <SolidColorBrush x:Key="StepLockedOutlineBrush"  Color="#33393B"/>
+        <!-- locked circle outline -->
+        <SolidColorBrush x:Key="StepMutedBrush"          Color="#4B5457"/>
+        <!-- locked numeral/label/lock -->
+        <SolidColorBrush x:Key="StepActiveBrush"         Color="#F97316"/>
+        <!-- active circle + underline -->
+        <SolidColorBrush x:Key="OnStepActiveBrush"       Color="#4A1B0C"/>
+        <!-- numeral on active circle -->
+        <SolidColorBrush x:Key="StepCompleteLabelBrush"  Color="#9FE1CB"/>
+        <!-- completed label (dim teal) -->
+        <SolidColorBrush x:Key="OnStepCompleteBrush"     Color="#04342C"/>
+        <!-- check glyph on teal circle -->
+        <SolidColorBrush x:Key="StepCountBrush"          Color="#6B7280"/>
+        <!-- muted inline count -->
+        <SolidColorBrush x:Key="StepRejectedBrush"       Color="#E24B4A"/>
+        <!-- N rejected (later) -->
+
 
         <!--Control styles -->
        
@@ -314,9 +339,34 @@
 
         </Style>
 
+        
+        
+        <!--Pipline-->
+        
+                  
+            
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+       
+
+        
 
 
 
