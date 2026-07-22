@@ -39,7 +39,7 @@ namespace domainAnalyserSat
             set => SetValue(labelProperty, value);
         }
         public static readonly DependencyProperty labelProperty =
-            DependencyProperty.Register(nameof(Label), typeof(string), typeof(pipeLineStep),
+            DependencyProperty.Register(nameof(label), typeof(string), typeof(pipeLineStep), //match property label not the control type Label
                 new PropertyMetadata(""));
 
 
@@ -67,7 +67,7 @@ namespace domainAnalyserSat
         public static readonly DependencyProperty stateProperty =
 
             DependencyProperty.Register(nameof(state), typeof(stepState), typeof(pipeLineStep),
-                new PropertyMetadata(""));
+                new PropertyMetadata(stepState.Locked)); //string defaul wtih throw error, use enum default locked 
         
 
 
