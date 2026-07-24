@@ -48,13 +48,13 @@
 
                 <!-- Nav -->
                 <Button x:Name="btnNavDashboard" Content="Dashboard"
-                    Style="{StaticResource SidebarNavButton}"
+                    Style="{StaticResource sidebarNavBtn}"
                     Click="btnNavDashboard_Click"/>
                 <Button x:Name="btnNavWatchlist" Content="Watchlist"
-                    Style="{StaticResource SidebarNavButton}"
+                    Style="{StaticResource sidebarNavBtn}"
                     Click="btnNavWatchlist_Click"/>
                 <Button x:Name="btnNavSession" Content="Session"
-                    Style="{StaticResource SidebarNavButton}"
+                    Style="{StaticResource sidebarNavBtn}"
                     Click="btnNavSession_Click"/>
 
 
@@ -77,20 +77,62 @@
             <!--Top nav bar-->
             <Border Grid.Row="0" Padding="32,18"
                 BorderBrush="{StaticResource OutlineBrush}" BorderThickness="0,0,0,1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="btnTopImport" Content="Import"
-                        Style="{StaticResource TopNavButton}"
-                        Click="btnTopImport_Click"/>
-                    <Button x:Name="btnTopValidate" Content="Validate"
-      Style="{StaticResource TopNavButton}" Margin="28,0,0,0"
-      Click="btnTopValidate_Click"/>
-                    <Button x:Name="btnTopAnalysis" Content="Analysis"
-                        Style="{StaticResource TopNavButton}" Margin="28,0,0,0"
-                        Click="btnTopAnalysis_Click"/>
-                  
-                </StackPanel>
+               
+                    <!--Collapsed until a sesseion is active -->
+
+                <Border x:Name="pipelineStepper" Visibility="Collapsed"
+                        Background="{StaticResource StepPanelBrush}"
+                        BorderBrush="{StaticResource StepRailBrush}" BorderThickness="1"
+                        CornerRadius="4" Padding="16,10">
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <local:pipeLineStep x:Name="stepImport" Grid.Column="0"
+                                            Style="{StaticResource pipelineStepStyle}"
+                                            stepNumber="1" label="Import" state="Active"
+                                            Cursor="Hand" MouseLeftButtonUp="stepImport_Click"/>
+                        
+                        <Border x:Name="rail1" Grid.Column="1" Height="1" Margin="12,0"
+                     VerticalAlignment="Center" Background="{StaticResource StepRailBrush}"/>
+
+
+                        <local:pipeLineStep x:Name="stepValidate" Grid.Column="2"
+                                Style="{StaticResource pipelineStepStyle}"
+                                stepNumber="2" label="Validate" state="Locked"/>
+
+                        <Border x:Name="rail2" Grid.Column="3" Height="1" Margin="12,0"
+                     VerticalAlignment="Center" Background="{StaticResource StepRailBrush}"/>
+
+
+                        <local:pipeLineStep x:Name="stepAnalyse" Grid.Column="4"
+                                            Style="{StaticResource pipelineStepStyle}"
+                                            stepNumber="3" label="Analyse" state="Locked"/>
+
+
+
+
+                    </Grid>
+                    
+                </Border>
+                
+                   
             </Border>
-            <!-- Swappable content region -->
+         
+                
+                
+                
+                
+                
+                
+                <!-- Swappable content region -->
             <ContentControl x:Name="contentHost" Grid.Row="1"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"/>
@@ -104,18 +146,6 @@
 
 
     </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

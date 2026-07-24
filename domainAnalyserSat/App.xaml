@@ -280,7 +280,7 @@
         </Style>
         
         <!-- Left side bar navi items -->
-        <Style x:Key="SidebarNavButton" TargetType="Button">
+        <Style x:Key="sidebarNavBtn" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariantBrush}"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="FontFamily" Value="{StaticResource InterFont}"/>
@@ -332,7 +332,7 @@
         
       <!--Selected sidebar nav menu -->
         <Style x:Key="sidebarNavBtnActive" TargetType="Button"
-            BasedOn="{StaticResource SidebarNavButton}">
+            BasedOn="{StaticResource sidebarNavBtn}">
             <Setter Property="Background" Value="{StaticResource SurfaceHighBrush}"/>
             <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
 
