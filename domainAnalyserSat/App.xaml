@@ -430,22 +430,79 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         </Style>
                
         
                   
-            
+            <!--Combo box for the delimeter and csv mapping for domain imports -->
+        <Style x:Key="domainCmbx" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!--Use togglebutton since dropdown needs to have 2 states; open and closed-->
+                            <ToggleButton x:Name="tb" Focusable="False" ClickMode="Press"
+                                          IsChecked="{Binding isDropDownOpen, Mode=TwoWay, 
+                                                RelativeSource= {RelativeSource,templateParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{StaticResource InputBackgroundBrush}"
+                                                BorderBrush="{StaticResource OutlineBrush}"
+                                                BorderThickness="1" CornerRadius="4">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="24"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Grid.Column="0" Margin="10,0"
+                                                                  
+                                            Content="{Binding SelectionBoxItem,
+                                                RelativeSource={RelativeSource AncestorType=ComboBox}}" 
+                                            VerticalAlignment="Center"/>
+                                                <!--Had to use ancestor type since togglebutton template is nested in combo box template -->
+                                                <!--claude drew the triangle path for me  -->
+                                                <Path Grid.Column="1" Data="M0,0 L8,0 L4,5 Z" 
+                                              Fill="{StaticResource OnSurfaceVariantBrush}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+
+                            </ToggleButton>
+                            <!--isDropDownOpen = true, popup appears -->
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom"
+                                   
+                                   AllowsTransparency="True" Focusable="False"> <!--border has rounded corners so no clipping occurs behind the border -->
+                                <Border Background="{StaticResource SurfaceHighBrush}"
+                                BorderBrush="{StaticResource OutlineBrush}" BorderThickness="1"
+                                CornerRadius="4" MinWidth="{Binding ActualWidth,
+                                    RelativeSource={RelativeSource TemplatedParent}}">
+                                    <StackPanel IsItemsHost="True"/>
+                                </Border>
+                            </Popup>
+
+
+
+
+
+                        </Grid>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+
+
+        </Style>
+               
 
 
 
