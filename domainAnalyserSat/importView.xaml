@@ -111,6 +111,7 @@
                             <ComboBoxItem>Comma (,)</ComboBoxItem>
                             <ComboBoxItem>Tab</ComboBoxItem>
                             <ComboBoxItem>Semicolon (;)</ComboBoxItem>
+                                
                         </ComboBox>
                         <CheckBox Content="First row contains headers" IsChecked="True" Margin="0,16,0,0"
                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>

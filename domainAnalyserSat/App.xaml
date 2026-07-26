@@ -462,10 +462,12 @@
                                                     <ColumnDefinition Width="24"/>
                                                 </Grid.ColumnDefinitions>
                                                 <ContentPresenter Grid.Column="0" Margin="10,0"
+                                                                  TextElement.Foreground="{StaticResource OnSurfaceBrush}"
+                                                            
                                                                   
-                                            Content="{Binding SelectionBoxItem,
-                                                RelativeSource={RelativeSource AncestorType=ComboBox}}" 
-                                            VerticalAlignment="Center"/>
+                                                       Content="{Binding SelectionBoxItem,
+                                                        RelativeSource={RelativeSource AncestorType=ComboBox}}" 
+                                                       VerticalAlignment="Center"/>
                                                 <!--Had to use ancestor type since togglebutton template is nested in combo box template -->
                                                 <!--claude drew the triangle path for me  -->
                                                 <Path Grid.Column="1" Data="M0,0 L8,0 L4,5 Z" 
@@ -486,6 +488,7 @@
                                 <Border Background="{StaticResource SurfaceHighBrush}"
                                 BorderBrush="{StaticResource OutlineBrush}" BorderThickness="1"
                                 CornerRadius="4" MinWidth="{Binding ActualWidth,
+                                    
                                     RelativeSource={RelativeSource TemplatedParent}}">
                                     <StackPanel IsItemsHost="True"/>
                                 </Border>
