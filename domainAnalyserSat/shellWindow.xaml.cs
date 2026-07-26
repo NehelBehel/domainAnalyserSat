@@ -36,7 +36,9 @@ namespace domainAnalyserSat
 
         private void btnNewAnalysis_Click(object sender, RoutedEventArgs e)
         {
-            //import view is shown add later 
+            contentHost.Content = new importView();
+
+
             pipelineStepper.Visibility = Visibility.Visible;
             clearSideBarActive();
             
@@ -46,6 +48,7 @@ namespace domainAnalyserSat
         private void stepImport_Click(object sender, MouseButtonEventArgs e ) //
         {
             //import view 
+            contentHost.Content = new importView();
         }
 
         private void btnNavDashboard_Click(object sender, RoutedEventArgs e)
@@ -114,5 +117,16 @@ namespace domainAnalyserSat
 
 
         }
+
+       
+
+       
+      
+
+
+
+
+
+
     }
 }

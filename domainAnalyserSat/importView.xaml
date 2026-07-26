@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="domainAnalyserSat.importView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:domainAnalyserSat"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1000">
+
+
+
+
+    <ScrollViewer VerticalScrollBarVisibility ="Auto">
+        <StackPanel MaxWidth="1040" Margin="24" Width="937">
+
+            <!--Header-->
+            <TextBlock Text="Data Import" FontSize="24" FontWeight="Bold"
+                       Foreground="{StaticResource OnSurfaceBrush}"/>
+            <TextBlock Text="Import a raw domain list (CSV or TXT) to begin analysis."
+                       FontSize="12" Foreground="{StaticResource OnSurfaceVariantBrush}"
+                       Margin="0,4,0,20"/>
+
+
+            <!--Domain inputs-->
+            <!--Left side: (drag field + input fields)-->
+            <!--Right side: Parser config -->
+
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <!--2:1 spacing split -->
+
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="1*"/>
+
+
+
+                </Grid.ColumnDefinitions>
+
+                <!--Left column -->
+                <StackPanel Grid.Column="0">
+
+                    <!--Drag and drop field -->
+                    <Grid MinHeight="220">
+
+                        <Border Background="{StaticResource ZebraStripeBrush}" CornerRadius="8"/>
+                        <Rectangle Stroke="{StaticResource OutlineBrush}" StrokeThickness="1"
+                                   StrokeDashArray ="4 3" RadiusX="8" RadiusY ="8"/>
+                        <!--dotted outline : stoke VALUES  suggested by claude -->
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                            <!--E898 upload icon -->
+                            <TextBlock Text="&#xE898;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
+                                       HorizontalAlignment="Center"
+                                       Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                            <TextBlock Text="Drag &amp; Drop Files Here" FontSize="18" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" Margin="0,10,0,0"
+                                       Foreground="{StaticResource OnSurfaceBrush}"/>
+                            <TextBlock Text="Support for .csv or .txt up to 500MB"
+                                       FontSize="12" HorizontalAlignment="Center" Margin="0,6,0,16"
+                                       Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                            <Button Content="Browse Files" Style="{StaticResource SecondaryButton}"
+                                    HorizontalAlignment="Center" Padding="24,0"/>
+                            <TextBlock x:Name="txtSelectedFile" Text=""
+                                       FontFamily="{StaticResource MonoFont}" FontSize="12"
+                                       HorizontalAlignment="Center" Margin="0,14,0,0"
+                                       Foreground="{StaticResource PrimaryBrush}"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!--Single domain entry -->
+                    <Border Style="{StaticResource CardBorder}" Margin="0,20,0,0">
+                        <StackPanel>
+                            <DockPanel>
+                                <TextBlock Text="Single Domain Entry " FontWeight="SemiBold"
+                                           Foreground="{StaticResource OnSurfaceBrush}"/>
+                                <TextBlock Text="One per line" DockPanel.Dock="Right"
+                                           HorizontalAlignment="Right" FontSize="12"
+                                           Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+
+                            </DockPanel>
+
+                            <TextBox x:Name="txtSingleEntry" Style="{StaticResource DomainTextBox}"
+                                    Height="80" Margin="0,12,0,0" AcceptsReturn="True"
+                                    TextWrapping="Wrap" VerticalContentAlignment="Top"
+                                    VerticalScrollBarVisibility="Auto"/>
+
+
+
+                        </StackPanel>
+
+
+                    </Border>
+
+
+                </StackPanel>
+
+
+                <!--Right column - parrse config -->
+                <Border Grid.Column="2" Style="{StaticResource CardBorder}" VerticalAlignment="Top">
+                    <StackPanel>
+                        <TextBlock Text="Parser Configuration" FontWeight="SemiBold"
+                                   Foreground="{StaticResource OnSurfaceBrush}"/>
+                        <TextBlock Text="Delimiter Detection" FontSize="12" Margin="0,16,0,6"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <ComboBox Style="{StaticResource domainCmbx}" SelectedIndex="0">
+                            <ComboBoxItem>Auto-detect</ComboBoxItem>
+                            <ComboBoxItem>Comma (,)</ComboBoxItem>
+                            <ComboBoxItem>Tab</ComboBoxItem>
+                            <ComboBoxItem>Semicolon (;)</ComboBoxItem>
+                        </ComboBox>
+                        <CheckBox Content="First row contains headers" IsChecked="True" Margin="0,16,0,0"
+                                  Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <Button Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
+                                Margin="0,20,0,0"/>
+                    </StackPanel>
+                </Border>
+
+
+                <!--Column mapping for csv imports -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,423,20,-172" Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <TextBlock Text="Column Mapping" FontWeight="SemiBold"
+                               Foreground="{StaticResource OnSurfaceBrush}"/>
+                        <TextBlock Text="Mark the column that contains the domain name. Every other column is ignored."
+                               FontSize="12" Margin="0,4,0,14"
+                               Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="File Column" FontSize="11"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Sample Data" FontSize="11"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Map To Field" FontSize="11"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+
+                            <!-- Row 1 (domain) -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="col_1" Margin="0,6"
+                                   FontFamily="{StaticResource MonoFont}" FontSize="13"
+                                   Foreground="{StaticResource OnSurfaceBrush}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="example.com" Margin="0,6"
+                                   FontFamily="{StaticResource MonoFont}" FontSize="13"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                            <ComboBox Grid.Row="1" Grid.Column="2" Style="{StaticResource domainCmbx}"
+                                  SelectedIndex="0" Margin="0,4">
+                                <ComboBoxItem>Domain</ComboBoxItem>
+                                <ComboBoxItem>-- Ignore --</ComboBoxItem>
+                            </ComboBox>
+
+                            <!-- Row 2 (ignored) -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="col_2" Margin="0,6"
+                                   FontFamily="{StaticResource MonoFont}" FontSize="13"
+                                   Foreground="{StaticResource OnSurfaceBrush}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Technology" Margin="0,6"
+                                   FontFamily="{StaticResource MonoFont}" FontSize="13"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                            <ComboBox Grid.Row="2" Grid.Column="2" Style="{StaticResource domainCmbx}"
+                                  SelectedIndex="1" Margin="0,4">
+                                <ComboBoxItem>Domain</ComboBoxItem>
+                                <ComboBoxItem>-- Ignore --</ComboBoxItem>
+                            </ComboBox>
+
+                            <!-- Row 3 (ignored) -->
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="col_3" Margin="0,6"
+                                   FontFamily="{StaticResource MonoFont}" FontSize="13"
+                                   Foreground="{StaticResource OnSurfaceBrush}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="High priority" Margin="0,6"
+                                   FontFamily="{StaticResource MonoFont}" FontSize="13"
+                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                            <ComboBox Grid.Row="3" Grid.Column="2" Style="{StaticResource domainCmbx}"
+                                  SelectedIndex="1" Margin="0,4">
+                                <ComboBoxItem>Domain</ComboBoxItem>
+                                <ComboBoxItem>-- Ignore --</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+
+
+            </Grid>
+
+            <!--Grid for the import button to make it a fixted footer -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <!--Scrolling content -->
+                    <RowDefinition Height="Auto"/>
+                    <!--Fotter button -->
+
+
+                </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel MaxWidth="1040" Margin="24" HorizontalAlignment="Left">
+
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!--Start import process-->
+                <Button Grid.Row="1" Content="Start Import Process" Style="{StaticResource PrimaryButton}"
+                       HorizontalAlignment="Right" Padding="14,0" Margin="24" />
+
+            </Grid>
+
+
+
+
+
+
+
+
+
+
+        </StackPanel>
+
+
+
+
+
+    </ScrollViewer>
+
+</UserControl>

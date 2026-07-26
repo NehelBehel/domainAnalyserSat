@@ -7,7 +7,11 @@
         mc:Ignorable="d"
          d:DesignHeight="600" d:DesignWidth="960"
  Background="{StaticResource BackgroundBrush}"
- FontFamily="{StaticResource InterFont}"            
+ FontFamily="{StaticResource InterFont}"           
+        
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        
        
  Title="windowShell">
     <Grid>

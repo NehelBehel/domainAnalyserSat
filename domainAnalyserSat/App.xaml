@@ -75,7 +75,7 @@
        
         
         <!--TextInputs -->
-        <Style x:Key="TerminalTextBox" TargetType="TextBox">
+        <Style x:Key="DomainTextBox" TargetType="TextBox">
             <Setter Property="Foreground" Value ="{StaticResource OnSurfaceBrush}"/>
             <Setter Property="CaretBrush" Value="{StaticResource PrimaryBrush}"/>
             <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
@@ -448,8 +448,9 @@
                         <Grid>
                             <!--Use togglebutton since dropdown needs to have 2 states; open and closed-->
                             <ToggleButton x:Name="tb" Focusable="False" ClickMode="Press"
-                                          IsChecked="{Binding isDropDownOpen, Mode=TwoWay, 
-                                                RelativeSource= {RelativeSource,templateParent}}">
+                                          IsChecked="{Binding IsDropDownOpen,Mode= TwoWay,  RelativeSource= {RelativeSource TemplatedParent}}">
+                                
+
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
                                         <Border Background="{StaticResource InputBackgroundBrush}"

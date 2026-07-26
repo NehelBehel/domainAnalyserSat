@@ -39,7 +39,7 @@
                        Foreground="{StaticResource OnSurfaceVariantBrush}"
                        FontSize="12" Padding="0,0,0,6"/>
                 <TextBox x:Name="txtUsername"
-                         Style="{StaticResource TerminalTextBox}"
+                         Style="{StaticResource DomainTextBox}"
                          TabIndex="0"
                          AutomationProperties.Name="Username"/>
                 <!--Allows assistive services to read app (Blind people) -->
