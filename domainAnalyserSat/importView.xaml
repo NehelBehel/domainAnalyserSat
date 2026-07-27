@@ -40,13 +40,20 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Left column -->
-                <StackPanel Grid.Column="0">
+                <StackPanel Grid.Column="0" x:Name="dropPanel"
+                            AllowDrop="True"
+                            DragOver="importField_DragOver"
+                            Drop="importField_Drop">
+
+
 
                     <!--Drag and drop field -->
                     <Grid MinHeight="220">
 
-                        <Border Background="{StaticResource ZebraStripeBrush}" CornerRadius="8"/>
-                        <Rectangle Stroke="{StaticResource OutlineBrush}" StrokeThickness="1"
+                    <Border Background="{StaticResource ZebraStripeBrush}" CornerRadius="8"/>
+
+
+                    <Rectangle Stroke="{StaticResource OutlineBrush}" StrokeThickness="1"
                                    StrokeDashArray ="4 3" RadiusX="8" RadiusY ="8"/>
                         <!--dotted outline : stoke VALUES  suggested by claude -->
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
@@ -57,11 +64,11 @@
                             <TextBlock Text="Drag &amp; Drop Files Here" FontSize="18" FontWeight="SemiBold"
                                        HorizontalAlignment="Center" Margin="0,10,0,0"
                                        Foreground="{StaticResource OnSurfaceBrush}"/>
-                            <TextBlock Text="Support for .csv or .txt up to 500MB"
+                            <TextBlock Text="Support for .csv or .txt "
                                        FontSize="12" HorizontalAlignment="Center" Margin="0,6,0,16"
                                        Foreground="{StaticResource OnSurfaceVariantBrush}"/>
                             <Button Content="Browse Files" Style="{StaticResource SecondaryButton}"
-                                    HorizontalAlignment="Center" Padding="24,0"/>
+                                    HorizontalAlignment="Center" Padding="24,0" Click="btnBrowse_Click"/>
                             <TextBlock x:Name="txtSelectedFile" Text=""
                                        FontFamily="{StaticResource MonoFont}" FontSize="12"
                                        HorizontalAlignment="Center" Margin="0,14,0,0"
