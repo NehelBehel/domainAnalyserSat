@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Web;
 using Microsoft.Data.Sqlite;
 
 namespace domainAnalyserSat
@@ -60,6 +61,35 @@ namespace domainAnalyserSat
             command.ExecuteNonQuery();
 
 
+            //user session table 
+
+            string createSessions = @"
+                    CREATE TABLE IF NOT EXISTS sessions(
+                             sessionId INTEGER PRIMARY KEY,
+                             userId    INTEGER NOT NULL,
+                             name      TEXT,
+                             createdAt TEXT NOT NULL,
+                             FOREIGN KEY (userId) REFERENCES users(userID)
+                );";
+
+            using SqliteCommand command1 = new SqliteCommand(createSessions, connection);
+            command1.ExecuteNonQuery();
+
+            string createDomains = @"
+               CREATE TABLE IF NOT EXISTS domains(
+                    sessionId INTEGER PRIMARY KEY,
+                    userId    INTEGER NOT NULL,
+                    name      TEXT,
+                    createdAt TEXT NOT NULL,
+                    FOREIGN KEY (userId) REFERENCES users(userID)
+
+            );";
+
+
+            using SqliteCommand command2 = new SqliteCommand(createDomains, connection);
+            command2.ExecuteNonQuery();
+            
+
 
         }
 
@@ -70,7 +100,7 @@ namespace domainAnalyserSat
             connection.Open();
             return connection;
         }
-
+                                                                                                                                                                                                                
 
 
     }

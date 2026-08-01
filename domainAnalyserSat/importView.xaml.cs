@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Printing;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -20,6 +21,11 @@ namespace domainAnalyserSat
 
     public partial class importView : UserControl
     {
+
+
+        private string selectedFilePath;//Full path of the chosen file 
+
+
         public string Data { get; set; }
         public importView()
         {
@@ -39,9 +45,11 @@ namespace domainAnalyserSat
             if (dialog.ShowDialog() == true)
             {
                 setSelectedFile(dialog.FileName);
+               
             }
 
 
+          
         }
 
        //Show the chosen file
@@ -49,9 +57,13 @@ namespace domainAnalyserSat
        //TO DO: Add reading/ parsing of the file 
         private void setSelectedFile(string path)
         {
+
+            selectedFilePath = path; //keep full path for later use 
+
             txtSelectedFile.Text = System.IO.Path.GetFileName(path); //take the full path and return file name 
 
-
+           
+             
 
 
         }

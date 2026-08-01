@@ -57,14 +57,10 @@ namespace domainAnalyserSat
 
             }
 
+            //Sucess
+            appState.currentUserId = user.userId; //assign the userId to appstate to store which user is currently logged in 
+                
             
-
-
-            //Success - add an update for the last login time 
-
-            //Todo: Open dashboard window 
-            
-
             var shell = new shellWindow();
             shell.Show();
             this.Close();

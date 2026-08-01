@@ -41,14 +41,14 @@
 
                 <!--Left column -->
                 <StackPanel Grid.Column="0" x:Name="dropPanel"
-                            AllowDrop="True"
-                            DragOver="importField_DragOver"
-                            Drop="importField_Drop">
-
+                        AllowDrop="True"
+                        DragOver="importField_DragOver"
+                         Drop="importField_Drop">    
+                      
 
 
                     <!--Drag and drop field -->
-                    <Grid MinHeight="220">
+                    <Grid    MinHeight="220">
 
                     <Border Background="{StaticResource ZebraStripeBrush}" CornerRadius="8"/>
 
@@ -57,6 +57,9 @@
                                    StrokeDashArray ="4 3" RadiusX="8" RadiusY ="8"/>
                         <!--dotted outline : stoke VALUES  suggested by claude -->
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                                
+
+
                             <!--E898 upload icon -->
                             <TextBlock Text="&#xE898;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
                                        HorizontalAlignment="Center"
