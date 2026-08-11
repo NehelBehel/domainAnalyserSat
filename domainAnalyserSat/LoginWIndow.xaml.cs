@@ -77,13 +77,23 @@ namespace domainAnalyserSat
         //skip login button, remove before final 
         private void btnSkipLogin_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show( 
+                trademarkCheck.isFlagged("newbalance.com") + " " + trademarkCheck.isFlagged("NEW-balance.com") + " " + trademarkCheck.isFlagged("domainTest.com") + " " + trademarkCheck.isFlagged("newbal-an-ce.com")
+
+
+
+
+                );
+
 
             var shell = new shellWindow();
             shell.Show();
             this.Close();
 
 
+          
 
+                
 
 
 

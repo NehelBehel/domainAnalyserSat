@@ -11,7 +11,7 @@ namespace domainAnalyserSat
 
        public long sessionId { get; set; }
 
-        public string domain { get; set; }  
+        public string domain { get; set; } = string.Empty;
 
         public DateTime createdAt { get; set; }
 

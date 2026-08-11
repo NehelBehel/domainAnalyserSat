@@ -6,7 +6,7 @@ using System.Text;
 
 namespace domainAnalyserSat
 {
-    public static class domainrRepo
+    public static class domainRepo
     {
         //insert all the domains from that session 
        
