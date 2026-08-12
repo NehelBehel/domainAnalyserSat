@@ -52,9 +52,37 @@ namespace domainAnalyserSat
           
         }
 
-       //Show the chosen file
-       //Put in its own method as it needs to be called by both file input locatiions (drag + manual selection)
-       //TO DO: Add reading/ parsing of the file 
+        private void btnStartImport_Click(object sender, RoutedEventArgs e)
+        {
+            //check if user is signed in 
+            if (appState.currentUserId == 0)
+            {
+                
+                UiHelper.showError(lblError, "No user is signed in. Please log in before importing a file.");
+                return;
+            }
+
+            //name session name afte the source file 
+            //couldnt figure this part out - claude helped 
+            string sessionName = selectedFilePath =="" ? "Manual Entry" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : System.IO.Path.GetFileNameWithoutExtension(selectedFilePath) + "" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            //create session only if this is the first import of the sesion
+
+            if (appState.currentSessionId == 0)
+            {
+                appState.currentSessionId = sessionRepo.createSession(appState.currentSessionId, sessionName);
+            }
+
+
+            //write the domains
+            int inserted = domainRepo.addDomains(appState.currentSessionId);
+
+            //progress the stepper to the next step 
+        }
+
+        //Show the chosen file
+        //Put in its own method as it needs to be called by both file input locatiions (drag + manual selection)
+        //TO DO: Add reading/ parsing of the file 
         private void setSelectedFile(string path)
         {
 
@@ -102,7 +130,10 @@ namespace domainAnalyserSat
                     MessageBox.Show(System.IO.Path.GetFileName(selectedFilePath));
 
                 
+
             }
+
+
 
 
 

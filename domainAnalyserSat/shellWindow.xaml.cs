@@ -36,21 +36,39 @@ namespace domainAnalyserSat
 
         private void btnNewAnalysis_Click(object sender, RoutedEventArgs e)
         {
+            appState.currentSessionId = 0; //new session default to 0
             contentHost.Content = new importView();
 
 
             pipelineStepper.Visibility = Visibility.Visible;
             clearSideBarActive();
+
+
+            //reset the stepper so that a second analysis doesnt start on previous setp
+            stepImport.state = stepState.Active;
+            stepImport.count = "";
+            stepValidate.state = stepState.Locked;
+            stepAnalyse.state = stepState.Locked;
+
+
+
             
 
         }
 
         private void stepImport_Click(object sender, MouseButtonEventArgs e ) //
         {
+            
+           
+
             //import view 
             contentHost.Content = new importView();
+
+
         }
 
+
+      
         private void btnNavDashboard_Click(object sender, RoutedEventArgs e)
         {
             contentHost.Content = new workSpaceOV();

@@ -116,7 +116,7 @@
                                    Foreground="{StaticResource OnSurfaceBrush}"/>
                         <TextBlock Text="Delimiter Detection" FontSize="12" Margin="0,16,0,6"
                                    Foreground="{StaticResource OnSurfaceVariantBrush}"/>
-                        <ComboBox Style="{StaticResource domainCmbx}" SelectedIndex="0">
+                        <ComboBox x:Name ="cmbDelimiter" Style="{StaticResource domainCmbx}" SelectedIndex="0">
                             <ComboBoxItem>Auto-detect</ComboBoxItem>
                             <ComboBoxItem>Comma (,)</ComboBoxItem>
                             <ComboBoxItem>Tab</ComboBoxItem>
@@ -125,10 +125,11 @@
                         </ComboBox>
                         <CheckBox Content="First row contains headers" IsChecked="True" Margin="0,16,0,0"
                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
-                        <Button Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
-                                Margin="0,20,0,0"/>
+                        <Button x:Name="btnPreview" Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
+                                Margin="0,20,0,0" 
+                                Click="btnPreview_Click"/>
                     </StackPanel>
-                </Border>
+                </Border>       
 
 
                 <!--Column mapping for csv imports -->
@@ -224,9 +225,17 @@
                 </ScrollViewer>
 
                 <!--Start import process-->
-                <Button Grid.Row="1" Content="Start Import Process" Style="{StaticResource PrimaryButton}"
-                       HorizontalAlignment="Right" Padding="14,0" Margin="24" />
+                <Button x:Name ="btnStartImport"  Grid.Row="1" Content="Start Import Process" Style="{StaticResource PrimaryButton}"
+                       HorizontalAlignment="Right" Padding="14,0" Margin="24" 
+                        IsEnabled="False" Click="btnStartImport_Click"/>
 
+
+
+                <TextBlock x:Name="lblError"
+                       Foreground="{StaticResource ErrorBrush}"
+                       FontSize="12" TextWrapping="Wrap"
+                       Visibility="Collapsed"
+                       Margin="0,14,0,0"/>
             </Grid>
 
 
