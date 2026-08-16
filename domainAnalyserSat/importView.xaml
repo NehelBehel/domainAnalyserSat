@@ -125,9 +125,12 @@
                         </ComboBox>
                         <CheckBox Content="First row contains headers" IsChecked="True" Margin="0,16,0,0"
                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
-                        <Button x:Name="btnPreview" Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
+                        <!--<Button x:Name="btnPreview" Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
                                 Margin="0,20,0,0" 
-                                Click="btnPreview_Click"/>
+                          - Click="btnPreview_Click"
+                        
+                        -->
+                             
                     </StackPanel>
                 </Border>       
 

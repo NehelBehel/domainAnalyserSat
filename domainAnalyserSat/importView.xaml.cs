@@ -30,6 +30,19 @@ namespace domainAnalyserSat
         public importView()
         {
             InitializeComponent();
+
+
+           
+
+
+
+
+
+
+
+
+
+
         }
 
         //Allows the user to browse files and make selection 
@@ -47,9 +60,9 @@ namespace domainAnalyserSat
                 setSelectedFile(dialog.FileName);
                
             }
+            
 
-
-          
+            
         }
 
         private void btnStartImport_Click(object sender, RoutedEventArgs e)
@@ -61,6 +74,22 @@ namespace domainAnalyserSat
                 UiHelper.showError(lblError, "No user is signed in. Please log in before importing a file.");
                 return;
             }
+
+            //check for file selctions
+            if (string.IsNullOrEmpty(selectedFilePath))
+            {
+                UiHelper.showError(lblError, "No file selected. Please select a file to import.");
+                return;
+            }
+
+
+            //Parse the selected file 
+            //curent values are placeholders until fed from the UI
+
+            string[] lines = System.IO.File.ReadAllLines(selectedFilePath);
+            parseResults result = domainParser.parse(lines, ',', hasHeader: true, domColumn: 0);
+
+            
 
             //name session name afte the source file 
             //couldnt figure this part out - claude helped 
@@ -75,7 +104,7 @@ namespace domainAnalyserSat
 
 
             //write the domains
-            int inserted = domainRepo.addDomains(appState.currentSessionId);
+            int inserted = domainRepo.addDomains(appState.currentSessionId, result.domains);
 
             //progress the stepper to the next step 
         }
@@ -90,8 +119,13 @@ namespace domainAnalyserSat
 
             txtSelectedFile.Text = System.IO.Path.GetFileName(path); //take the full path and return file name 
 
-           
-             
+            // --- TEMP Stage-3 parser test — DELETE once Stage 4 exists --- (claude helped )
+            string[] lines = System.IO.File.ReadAllLines(path);
+            parseResults r = domainParser.parse(lines, ',', hasHeader: true, domColumn: 0);
+            MessageBox.Show(
+                $"total={r.totalRows}  valid={r.validCount}  invalid={r.invalidCount}  dup={r.duplicateCount}\n\n"
+                + string.Join("\n", r.domains));
+
 
 
         }

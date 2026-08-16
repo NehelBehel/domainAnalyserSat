@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.Eventing.Reader;
+using System.DirectoryServices.ActiveDirectory;
 using System.Reflection.Emit;
 using System.Security.Policy;
 using System.Text;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Media.Animation;
 using System.Windows.Xps.Serialization;
+using System.Xml.XPath;
 
 namespace domainAnalyserSat
 {
@@ -83,6 +86,11 @@ namespace domainAnalyserSat
             string s = line.Trim();
             s = s.ToLowerInvariant();
 
+            //remove quotations marks 
+          if  (s.StartsWith("\"")) s = s.Substring(1);              // strip leading quote
+            if (s.EndsWith("\"")) s = s.Substring(0, s.Length - 1);  // strip trailing quote
+            s = s.Trim();
+
 
             if (s.StartsWith("https://"))
             {
@@ -103,12 +111,12 @@ namespace domainAnalyserSat
 
             if (slash >= 0)
             {
-                s.Substring(0, slash); //remove the path of the url
+               s=  s.Substring(0, slash); //remove the path of the url
             }
 
             if (s.EndsWith('.'))
             {
-                s.Substring(0, s.Length - 1); //remove the trailing dot if it exists
+              s=   s.Substring(0, s.Length - 1); //remove the trailing dot if it exists
             }
 
 
@@ -158,7 +166,7 @@ namespace domainAnalyserSat
             foreach (string part in parts)
             {
                 //dns each laben must be betweeen 1-63 char
-                if (part.Length < 1 || parts.Length > 63)
+                if (part.Length < 1 || part.Length > 63)
                 {
                     return false;
                 }
@@ -167,20 +175,18 @@ namespace domainAnalyserSat
 
                 foreach (char c in part)
                 {
-                    if (c >= 'a' && c <= 'z' || (c >= '0' && c <= '9') || (c == '-'))
-                    {
-                        return true;
-
-                    }
-                    else
+                    bool ok = (c >= 'a' && c <= 'z' || (c >= '0' && c <= '9') || (c == '-'));
+                    if (!ok)
                     {
                         return false;
                     }
+                    
+                    
 
 
                 }
 
-                if (parts.StartsWith("-") || parts.EndsWith("-"))
+                if (part.StartsWith("-") || part.EndsWith("-"))
                 {
                     return false;
 
@@ -213,8 +219,102 @@ namespace domainAnalyserSat
         
         
         }
+   
+    
+    public static parseResults parse(string[] lines, char delimiter, bool hasHeader, int domColumn)
+        {
+            parseResults result  = new parseResults();
+
+
+            //if lines are null or empty, return empty rather than crashing 
+            if (lines ==null || lines.Length == 0)
+            {
+                return result;
+            }
+
+            //index of first data row 
+            //If hasHeader = true, set start = 1 and split row 0 into result.headers
+            int start = 0;
+            if (hasHeader && lines.Length >=1)
+            {
+                result.headers = splitLine(lines[0], delimiter); //split the header row into columns 
+                start = 1; //start from the second row
+            }
+
+            //check for duplicate domains 
+            HashSet<string> seenDomains = new HashSet<string>(); //claude recommend Hashet as it is faster than list for checking duplicates
+
+            //loop through line, check if empty if so skip and continue 
+
+            for (int i = start; i < lines.Length; i++)
+            {
+                string line = lines[i];
+
+                if (string.IsNullOrWhiteSpace(line)) //skip
+                {
+                    continue;
+                }
+
+
+                result.totalRows++; //increment the total rows 
+
+
+                //valid line found 
+                string[] parts = splitLine(line, delimiter);
+
+                if(domColumn >= parts.Length)
+                {
+                    result.invalidCount++;
+                    continue;
+
+        
+
+                }
+
+                //ensure the row meets the mapped amt of columns 
+                string potential = normlaise(parts[domColumn]);
+                if (!isValid(potential))
+                {
+                    result.invalidCount++;
+                    continue;
+
+                }
+
+                //Duplicate found, increment 
+                if (!seenDomains.Add(potential))
+                {
+                    result.duplicateCount++;
+                        continue;
+                }
+
+                //passed 
+                result.domains.Add(potential);
+                result.validCount++;
+
+            }
+
+
+            return result;  
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+    
+    
     }
 
-
+   
 
 }
