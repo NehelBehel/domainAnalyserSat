@@ -43,21 +43,21 @@
                 <StackPanel Grid.Column="0" x:Name="dropPanel"
                         AllowDrop="True"
                         DragOver="importField_DragOver"
-                         Drop="importField_Drop">    
-                      
+                         Drop="importField_Drop">
+
 
 
                     <!--Drag and drop field -->
                     <Grid    MinHeight="220">
 
-                    <Border Background="{StaticResource ZebraStripeBrush}" CornerRadius="8"/>
+                        <Border Background="{StaticResource ZebraStripeBrush}" CornerRadius="8"/>
 
 
-                    <Rectangle Stroke="{StaticResource OutlineBrush}" StrokeThickness="1"
+                        <Rectangle Stroke="{StaticResource OutlineBrush}" StrokeThickness="1"
                                    StrokeDashArray ="4 3" RadiusX="8" RadiusY ="8"/>
                         <!--dotted outline : stoke VALUES  suggested by claude -->
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-                                
+
 
 
                             <!--E898 upload icon -->
@@ -121,28 +121,31 @@
                             <ComboBoxItem>Comma (,)</ComboBoxItem>
                             <ComboBoxItem>Tab</ComboBoxItem>
                             <ComboBoxItem>Semicolon (;)</ComboBoxItem>
-                                
+
                         </ComboBox>
-                        <CheckBox Content="First row contains headers" IsChecked="True" Margin="0,16,0,0"
+                        <CheckBox x:Name="chkHeader" Content="First row contains headers" IsChecked="True" Margin="0,16,0,0"
                                   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
-                        <!--<Button x:Name="btnPreview" Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
+                        <Button x:Name="btnPreview" Content="Apply &amp; Preview" Style="{StaticResource SecondaryButton}"
                                 Margin="0,20,0,0" 
-                          - Click="btnPreview_Click"
-                        
-                        -->
-                             
+                           Click="btnPreview_Click"/>
+
+
+
                     </StackPanel>
-                </Border>       
+                </Border>
 
 
                 <!--Column mapping for csv imports -->
-                <Border Style="{StaticResource CardBorder}" Margin="0,423,20,-172" Grid.ColumnSpan="2">
+                <Border Style="{StaticResource CardBorder}" Margin="0,414,0,-259" Grid.ColumnSpan="2">
                     <StackPanel>
                         <TextBlock Text="Column Mapping" FontWeight="SemiBold"
                                Foreground="{StaticResource OnSurfaceBrush}"/>
                         <TextBlock Text="Mark the column that contains the domain name. Every other column is ignored."
                                FontSize="12" Margin="0,4,0,14"
                                Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <ComboBox x:Name="cmbDomainCol" Style="{StaticResource domainCmbx}"
+                           Visibility="Collapsed" Width="220" HorizontalAlignment="Left"/>
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -239,6 +242,13 @@
                        FontSize="12" TextWrapping="Wrap"
                        Visibility="Collapsed"
                        Margin="0,14,0,0"/>
+
+
+
+
+
+
+
             </Grid>
 
 

@@ -115,6 +115,7 @@ namespace domainAnalyserSat
         private void setSelectedFile(string path)
         {
 
+
             selectedFilePath = path; //keep full path for later use 
 
             txtSelectedFile.Text = System.IO.Path.GetFileName(path); //take the full path and return file name 
@@ -125,6 +126,8 @@ namespace domainAnalyserSat
             MessageBox.Show(
                 $"total={r.totalRows}  valid={r.validCount}  invalid={r.invalidCount}  dup={r.duplicateCount}\n\n"
                 + string.Join("\n", r.domains));
+
+
 
 
 
@@ -172,15 +175,155 @@ namespace domainAnalyserSat
 
 
         }
+        //holds the most recent parse 
+        private parseResults? lastResult;
+
+
+        //read the item the user picked and return the delimiter character 
+
+        private char resolveDelim(string[] lines)
+        {
+           switch (cmbDelimiter.SelectedIndex)
+            {
+                case 0: return ',';
+                case 1: return '\t';
+                case 2: return ';';
+                default: //index is none of the above- this catches auto detect delimter and nothing is selcted at once 
+                    foreach(string x in lines )
+                        if (!string.IsNullOrWhiteSpace(x))
+                    {
+                            return domainParser.delimeterGuess(x);
+
+                    }
+
+                    return '\0'; //no delimter 
+            }
+
+           
 
 
 
+        }
+
+        private void btnPreview_Click(object sender, RoutedEventArgs e)
+        {
+            //check for a selected file
+            if (string.IsNullOrEmpty(selectedFilePath)) //no file chosen 
+            {
+                UiHelper.showError(lblError, "No file selected.");
+                return;
+            }
+
+            UiHelper.clearError(lblError); //clear error
+           
+            string[] lines = System.IO.File.ReadAllLines(selectedFilePath); //read the whole file into arrray 
+            char delimiter = resolveDelim(lines);
+            bool hasHeader = chkHeader.IsChecked== true;
 
 
+            int domainColumn;
+            if (cmbDomainCol.SelectedIndex >= 0)
+            {
+                domainColumn = cmbDomainCol.SelectedIndex; //uses selevted column
+            }
+            else
+                domainColumn = 0; //default to first column
 
 
+            //
+            lastResult = domainParser.parse(lines, delimiter, hasHeader, domainColumn);
+            
+
+            //add the show coulm picker method  logic here 
+            
 
         
+        }
+        //count the file columns, if only 1 , hide the picker
+        //if the file columns >1 display with the column names 
+        private void showColumnPicker(string[] lines, char delimier, bool hasHeader)
+        {
+            string? firstLine = null; //can be null
+
+            foreach(string x in lines) //grab the first non blank line 
+                if(!string.IsNullOrWhiteSpace(x))
+                {
+                    firstLine = x; //assign to the first line found 
+                    break;//Stop at the first find 
+
+                }
+
+            string[] cols;
+
+            if (firstLine == null)
+            {
+                cols = new string[0];
+            }
+
+            else
+            {
+                cols = domainParser.splitLine(firstLine, delimier);
+            }
+
+            //txt entry (txt) - no picker 
+
+            if (cols.Length <= 1)
+            {
+                cmbDomainCol.Visibility = Visibility.Collapsed;
+            } 
+            
+           
+           //save the user seclections 
+           int previous = cmbDomainCol.SelectedIndex;
+            cmbDomainCol.Items.Clear();
+
+            //loop for number of columns 
+          for(int i = 0 ; i < cols.Length; i++)
+            {
+
+                //Add one option to the cmbobox list 
+                //if the file has a header, add the header name
+                //If no header, add a generic column + column number 
+
+                cmbDomainCol.Items.Add(hasHeader ? cols[i] : "Column" + (i + 1)); //claude suggested use of  a ternary selection 
+
+                    
+            }
+
+            //Check for the users previous selection 
+            //If the user resets the selection, the users selection would be lost 
+            //validate whether the previous selection is still valid through range check 
+
+           
+            if (previous >= 0 && previous < cols.Length)
+            {
+               
+                cmbDomainCol.SelectedIndex = previous;
+            }
+            else
+            {
+               
+                cmbDomainCol.SelectedIndex = 0;
+
+            }
+
+            cmbDomainCol.Visibility = Visibility.Visible; //set the column selections to visible
+
+
+
+                
+
+        }
+
+
+
+
+
+
+
+
+
+
     }
 
 
