@@ -43,6 +43,7 @@
                 <StackPanel Grid.Column="0" x:Name="dropPanel"
                         AllowDrop="True"
                         DragOver="importField_DragOver"
+                           
                          Drop="importField_Drop">
 
 
@@ -233,7 +234,7 @@
                 <!--Start import process-->
                 <Button x:Name ="btnStartImport"  Grid.Row="1" Content="Start Import Process" Style="{StaticResource PrimaryButton}"
                        HorizontalAlignment="Right" Padding="14,0" Margin="24" 
-                        IsEnabled="False" Click="btnStartImport_Click"/>
+                        IsEnabled="True" Click="btnStartImport_Click"/>
 
 
 
@@ -243,6 +244,14 @@
                        Visibility="Collapsed"
                        Margin="0,14,0,0"/>
 
+                <Border x:Name="pnlResults" Style="{StaticResource CardBorder}" Margin="0,20,0,0" Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock Text="Preview" FontWeight="SemiBold" Foreground="{StaticResource OnSurfaceBrush}"/>
+                        <TextBlock x:Name="txtValid"     Foreground="{StaticResource PrimaryBrush}" Margin="0,8,0,0"/>
+                        <TextBlock x:Name="txtInvalid"   Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <TextBlock x:Name="txtDuplicate" Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                    </StackPanel>
+                </Border>
 
 
 

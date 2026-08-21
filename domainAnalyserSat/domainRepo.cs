@@ -59,6 +59,32 @@ namespace domainAnalyserSat
 
 
 
+        //returns how many domains belongs to each user 
+        //join by linking session id linked to the domain and user 
+
+        public static int countDomUser(long userId)
+        {
+            using SqliteConnection connection = Database.GetConnection(); 
+            using SqliteCommand cmd = new SqliteCommand(
+                @"SELECT COUNT(*) FROM domains d
+          JOIN sessions s ON d.sessionId = s.sessionId 
+          WHERE s.userId = @userId;", connection);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            return (int)(long)cmd.ExecuteScalar()!; //return the count 
+        }
+
+
+        //Load the session domains 
+        //This will be used for the validation screen, which will show all the valid domains 
+
+        //list since domain sizes will vary 
+        public static List<string>getDomains(long sessionId)
+        {
+
+
+
+
+        }
 
 
     }

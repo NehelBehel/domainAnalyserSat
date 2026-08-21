@@ -75,19 +75,31 @@ namespace domainAnalyserSat
                 return;
             }
 
+            //check if the user has applied column mapping 
+            if (lastResult == null)
+            {
+                UiHelper.showError(lblError, "Please Apply & Preview before importing");
+                return;
+                    
+            }
+
+            //check if valid domains is 0 
+            if (lastResult.validCount == 0)
+            {
+                UiHelper.showError(lblError, "No valid domains found, please try again ");
+
+            }
+
             //check for file selctions
             if (string.IsNullOrEmpty(selectedFilePath))
             {
                 UiHelper.showError(lblError, "No file selected. Please select a file to import.");
                 return;
             }
-
+            UiHelper.clearError(lblError);//clear errors 
 
             //Parse the selected file 
-            //curent values are placeholders until fed from the UI
-
-            string[] lines = System.IO.File.ReadAllLines(selectedFilePath);
-            parseResults result = domainParser.parse(lines, ',', hasHeader: true, domColumn: 0);
+           
 
             
 
@@ -99,19 +111,29 @@ namespace domainAnalyserSat
 
             if (appState.currentSessionId == 0)
             {
-                appState.currentSessionId = sessionRepo.createSession(appState.currentSessionId, sessionName);
+                appState.currentSessionId = sessionRepo.createSession(appState.currentUserId, sessionName);
             }
 
 
             //write the domains
-            int inserted = domainRepo.addDomains(appState.currentSessionId, result.domains);
+            int inserted = domainRepo.addDomains(appState.currentSessionId, lastResult.domains);
+            MessageBox.Show($"Imported {inserted} domains " +
+                 $"({lastResult.invalidCount} invalid, {lastResult.duplicateCount} duplicates).");
+
+
+
 
             //progress the stepper to the next step 
+
+            if (Window.GetWindow(this) is shellWindow shell)
+            {
+                shell.markImportComplete(inserted);
+            }
+
         }
 
         //Show the chosen file
-        //Put in its own method as it needs to be called by both file input locatiions (drag + manual selection)
-        //TO DO: Add reading/ parsing of the file 
+      
         private void setSelectedFile(string path)
         {
 
@@ -120,13 +142,7 @@ namespace domainAnalyserSat
 
             txtSelectedFile.Text = System.IO.Path.GetFileName(path); //take the full path and return file name 
 
-            // --- TEMP Stage-3 parser test — DELETE once Stage 4 exists --- (claude helped )
-            string[] lines = System.IO.File.ReadAllLines(path);
-            parseResults r = domainParser.parse(lines, ',', hasHeader: true, domColumn: 0);
-            MessageBox.Show(
-                $"total={r.totalRows}  valid={r.validCount}  invalid={r.invalidCount}  dup={r.duplicateCount}\n\n"
-                + string.Join("\n", r.domains));
-
+     
 
 
 
@@ -152,16 +168,12 @@ namespace domainAnalyserSat
 
             if (e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Length >0)
             {
+                setSelectedFile(files[0]);
+                
                 //if data returns string, test pass,  result is stored into var files 
                 //if null or not string, test returns false 
 
 
-
-
-
-
-                    //grab file path
-                    string selectedFilePath = files[0];
 
                     //Display 
                     MessageBox.Show(System.IO.Path.GetFileName(selectedFilePath));
@@ -185,9 +197,9 @@ namespace domainAnalyserSat
         {
            switch (cmbDelimiter.SelectedIndex)
             {
-                case 0: return ',';
-                case 1: return '\t';
-                case 2: return ';';
+                case 1: return ',';
+                case 2: return '\t';
+                case 3: return ';';
                 default: //index is none of the above- this catches auto detect delimter and nothing is selcted at once 
                     foreach(string x in lines )
                         if (!string.IsNullOrWhiteSpace(x))
@@ -227,21 +239,28 @@ namespace domainAnalyserSat
                 domainColumn = cmbDomainCol.SelectedIndex; //uses selevted column
             }
             else
-                domainColumn = 0; //default to first column
+            {
+                domainColumn = guessDomainColumn(lines, delimiter, hasHeader); //first time preview, guess the col
+            }
+             
 
 
             //
-            lastResult = domainParser.parse(lines, delimiter, hasHeader, domainColumn);
-            
+                lastResult = domainParser.parse(lines, delimiter, hasHeader, domainColumn);
 
-            //add the show coulm picker method  logic here 
-            
 
-        
+            // show the preview counts
+            MessageBox.Show($"Valid: {lastResult.validCount}\n" +
+                            $"Invalid: {lastResult.invalidCount}\n" +
+                            $"Duplicates: {lastResult.duplicateCount}");
+
+            showColumnPicker(lines, delimiter, hasHeader, domainColumn);
+
+
         }
         //count the file columns, if only 1 , hide the picker
         //if the file columns >1 display with the column names 
-        private void showColumnPicker(string[] lines, char delimier, bool hasHeader)
+        private void showColumnPicker(string[] lines, char delimiter, bool hasHeader, int selectedCol)
         {
             string? firstLine = null; //can be null
 
@@ -262,7 +281,7 @@ namespace domainAnalyserSat
 
             else
             {
-                cols = domainParser.splitLine(firstLine, delimier);
+                cols = domainParser.splitLine(firstLine, delimiter);
             }
 
             //txt entry (txt) - no picker 
@@ -270,6 +289,8 @@ namespace domainAnalyserSat
             if (cols.Length <= 1)
             {
                 cmbDomainCol.Visibility = Visibility.Collapsed;
+                return;
+
             } 
             
            
@@ -308,6 +329,7 @@ namespace domainAnalyserSat
             }
 
             cmbDomainCol.Visibility = Visibility.Visible; //set the column selections to visible
+            return;     
 
 
 
@@ -315,7 +337,64 @@ namespace domainAnalyserSat
 
         }
 
+        //Guesses which column holds the domain 
+        //Whichever column first passes validation will be assigned as the default 
+        private int guessDomainColumn(string[] lines, char delimiter, bool hasHeader)
+        {
+           
+            //starting row 
+            int start;
+            if (hasHeader) //check for headers and start on the next row 
+            {
+              start = 1;
+            }
+            else
+            {
+                start = 0; //no headers so first column is the starting point 
 
+            }
+
+            for (int i = start; i <lines.Length; i++)
+            {
+                //if empty line, skip it
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                {
+                    continue;
+                }
+
+                string[] parts = domainParser.splitLine(lines[i], delimiter); //split into columns 
+                for (int x = 0; x < parts.Length; x++) 
+                {
+
+                    //normalise the string 
+                    //if this is valid, return x and that is the valid column
+                    //if is valid fails keep looping to find the valid column
+                    if (domainParser.isValid(domainParser.normlaise(parts[x])))
+                    {
+                        return x;
+
+                    }
+                       
+
+                    
+                        
+                    
+                    
+                    
+                   
+                }
+
+                break; //we only need the first data row 
+
+                
+
+            }
+
+
+            //no match could be found 
+            return 0;
+
+        }
 
 
 

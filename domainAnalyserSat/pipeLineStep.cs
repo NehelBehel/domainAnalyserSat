@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Printing;
 using System.Security.Policy;
 using System.Text;
 using System.Windows;
@@ -70,7 +71,12 @@ namespace domainAnalyserSat
                 new PropertyMetadata(stepState.Locked)); //string defaul wtih throw error, use enum default locked 
         
 
-
-
+    
+      
+    
+    
+    
     }
+
+
 }

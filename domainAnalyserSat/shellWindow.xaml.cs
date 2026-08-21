@@ -136,10 +136,21 @@ namespace domainAnalyserSat
 
         }
 
-       
 
-       
-      
+
+
+
+        public void markImportComplete(int count)
+        {
+            pipelineStepper.Visibility = Visibility.Visible; //ensure the stepper is showing first 
+            stepImport.state = stepState.Complete; //
+            stepImport.count = count.ToString();
+            stepValidate.state = stepState.Active; //unlock and set active 
+
+
+
+
+        }
 
 
 
